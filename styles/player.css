@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Plyr Player Custom Theme & Video Overlays
+   ========================================================================== */
+
+:root {
+  --plyr-color-main: #6366f1;
+  --plyr-video-background: #000000;
+  --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.85));
+  --plyr-video-control-color: #f8fafc;
+  --plyr-video-control-color-hover: #ffffff;
+  --plyr-range-fill-background: #6366f1;
+  --plyr-menu-background: rgba(14, 19, 31, 0.95);
+  --plyr-menu-color: #f8fafc;
+  --plyr-menu-border-color: rgba(255, 255, 255, 0.1);
+  --plyr-menu-radius: 12px;
+  --plyr-tooltip-background: rgba(14, 19, 31, 0.9);
+  --plyr-tooltip-color: #ffffff;
+  --plyr-tooltip-radius: 6px;
+}
+
+/* Base Plyr Container */
+.plyr {
+  font-family: inherit;
+  border-radius: 0;
+  height: 100%;
+}
+
+.plyr--video {
+  height: 100%;
+}
+
+.plyr video {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+/* Play Large Button in Center */
+.plyr__control--overlaid {
+  background: var(--accent-gradient) !important;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.1);
+  transition: transform 0.2s ease, filter 0.2s ease !important;
+}
+
+.plyr__control--overlaid:hover {
+  transform: scale(1.2) !important;
+  filter: brightness(1.15) !important;
+}
+
+/* Controls Bar */
+.plyr__controls {
+  padding: 14px 20px !important;
+  backdrop-filter: blur(8px);
+}
+
+.plyr__control {
+  border-radius: 8px !important;
+  transition: all 0.15s ease !important;
+}
+
+.plyr__control:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Progress Slider */
+.plyr__progress input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6) !important;
+}
+
+/* Quality & Speed Menu */
+.plyr__menu__container {
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+.plyr__menu__container [role="menuitem"]:hover,
+.plyr__menu__container [role="menuitemradio"][aria-checked="true"] {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #a5b4fc !important;
+}

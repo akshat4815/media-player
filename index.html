@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aether Player - .WAP & HD Video Player</title>
+  <meta name="description" content="Modern, high-performance web player for .wap video files and media libraries. Runs client-side anywhere without server requirements.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Plyr Video Player Styles -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  
+  <!-- Custom App Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/player.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Application Header -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Aether Player</span>
+          <span class="brand-subtitle">.WAP & Media Suite</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="btnOpenShortcuts" title="Keyboard Shortcuts" aria-label="Keyboard Shortcuts">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M8 12h.001M12 12h.001M16 12h.001M18 16H6"></path>
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="btnOpenSettings" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <button class="btn-primary" id="btnSelectFiles">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span>Open Video</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <div class="app-layout">
+
+      <!-- Left Sidebar (Explorer & Chapters) -->
+      <aside class="app-sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title-row">
+            <span class="sidebar-title">Media Explorer</span>
+            <div class="sidebar-controls-row">
+              <button class="icon-btn" id="viewToggleBtn" title="Switch to Flat / Tree View" style="width: 32px; height: 32px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </button>
+              <button class="icon-btn" id="btnCloseSidebar" title="Close Sidebar" style="width: 32px; height: 32px; display: none;">
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchFiles" placeholder="Search chapters, files..." />
+            <button class="clear-search-btn" id="clearSearch" style="display: none;">&times;</button>
+          </div>
+        </div>
+
+        <!-- Quick Pick Actions -->
+        <div class="sidebar-picker-actions">
+          <button class="picker-btn highlight" id="btnOpenFolderNative" title="Open Folder with Native File System API">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Open Folder</span>
+          </button>
+          <button class="picker-btn" id="btnUploadFolder" title="Upload Entire Folder">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>Upload Dir</span>
+          </button>
+        </div>
+
+        <!-- Tree / File Hierarchy View -->
+        <div class="sidebar-content" id="treeContainer">
+          <div class="explorer-empty">
+            <div class="empty-icon">📁</div>
+            <p>No folder loaded</p>
+            <span class="empty-subtext">Click "Open Folder" or drag files here</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar Backdrop for Mobile -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <!-- Main Player / Hero Area -->
+      <main class="app-main">
+
+        <!-- Initial Hero / Dropzone State -->
+        <section class="hero-empty-state" id="emptyStateHero">
+          <div class="hero-card">
+            <div class="hero-glow-icon">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+            <h1 class="hero-title">Play Any .WAP & HD Video</h1>
+            <p class="hero-description">
+              Seamlessly decode and play obfuscated <code>.wap</code> files and high-definition video collections directly in your browser. Fast, private, and 100% client-side.
+            </p>
+
+            <!-- Drag & Drop Zone -->
+            <div class="hero-dropzone" id="dropZoneHero">
+              <div class="dropzone-inner">
+                <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span><strong>Drag and drop</strong> your .wap files or entire course folder</span>
+                <span class="dropzone-sub">Supports .wap, .mp4, .mkv, .webm, .mov</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="hero-actions-grid">
+              <button class="hero-btn primary" onclick="document.getElementById('fileUploadInput').click()">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Select Files</span>
+              </button>
+              <button class="hero-btn" onclick="document.getElementById('folderUploadInput').click()">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                <span>Choose Folder</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Active Player Section -->
+        <section class="player-section" id="playerSection">
+          
+          <!-- Player Info Header -->
+          <div class="player-header-bar">
+            <div class="current-video-info">
+              <span class="video-badge" id="currentVideoBadge">WAP</span>
+              <span class="current-title" id="currentVideoTitle">Select a video to play</span>
+            </div>
+
+            <div class="player-top-controls">
+              <button class="player-nav-btn" id="btnPrevVideo" title="Previous Video (Shift+P)" disabled>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                  <line x1="5" y1="19" x2="5" y2="5"></line>
+                </svg>
+              </button>
+
+              <button class="player-nav-btn" id="btnNextVideo" title="Next Video (Shift+N)" disabled>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                  <line x1="19" y1="5" x2="19" y2="19"></line>
+                </svg>
+              </button>
+
+              <button class="player-nav-btn" id="btnSnapshot" title="Take Screenshot (S)">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </button>
+
+              <button class="player-nav-btn" id="btnTheater" title="Theater Mode (T)">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="18" rx="2"></rect>
+                  <line x1="2" y1="9" x2="22" y2="9"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Video Player -->
+          <div class="player-wrapper">
+            <video id="mainVideoPlayer" playsinline crossorigin></video>
+
+            <!-- Loading Spinner Overlay -->
+            <div class="player-loading-overlay" id="playerLoadingOverlay">
+              <div class="spinner"></div>
+              <p>Decoding .WAP video stream...</p>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-bar">
+      <button class="mobile-bar-btn" id="btnMobilePlaylist">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        <span>Playlist</span>
+      </button>
+
+      <button class="mobile-bar-btn" id="btnMobilePickFile">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        <span>Open .WAP</span>
+      </button>
+
+      <button class="mobile-bar-btn" onclick="document.getElementById('folderUploadInput').click()">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Folder</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Hidden File & Folder Inputs -->
+  <input type="file" id="folderUploadInput" webkitdirectory directory multiple style="display: none;" />
+  <input type="file" id="fileUploadInput" multiple accept=".wap,video/*" style="display: none;" />
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-wrapper" id="shortcutsModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcuts-grid">
+          <div class="shortcut-item">
+            <span>Play / Pause</span>
+            <kbd>Space</kbd> / <kbd>K</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Seek 10s Backward</span>
+            <kbd>J</kbd> / <kbd>←</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Seek 10s Forward</span>
+            <kbd>L</kbd> / <kbd>→</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Volume Up / Down</span>
+            <kbd>↑</kbd> / <kbd>↓</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Fullscreen</span>
+            <kbd>F</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Mute / Unmute</span>
+            <kbd>M</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Take Screenshot</span>
+            <kbd>S</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Theater Mode</span>
+            <kbd>T</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Speed - / +</span>
+            <kbd>[</kbd> / <kbd>]</kbd>
+          </div>
+          <div class="shortcut-item">
+            <span>Next Video</span>
+            <kbd>Shift</kbd> + <kbd>N</kbd>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary modal-close">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-wrapper" id="settingsModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Player Preferences</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-label">Autoplay Next Video</span>
+              <span class="setting-desc">Automatically play next chapter in playlist</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="settingAutoplayNext" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-label">Remember Playback Progress</span>
+              <span class="setting-desc">Prompt to resume from where you left off</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="settingAutoResume" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-label">Seek Interval</span>
+              <span class="setting-desc">Seconds to skip on arrow keys</span>
+            </div>
+            <select class="setting-select" id="settingSeekTime">
+              <option value="5">5 Seconds</option>
+              <option value="10" selected>10 Seconds</option>
+              <option value="15">15 Seconds</option>
+              <option value="30">30 Seconds</option>
+            </select>
+          </div>
+
+          <button class="danger-action-btn" id="btnClearHistory">
+            Clear Playback History & Saved Timestamps
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary modal-close">Cancel</button>
+        <button class="btn-primary" id="btnSaveSettings">Save Preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plyr JS CDN -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+  <!-- Core Application Scripts -->
+  <script src="js/wapDecoder.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/fileExplorer.js"></script>
+  <script src="js/playerController.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
